@@ -11,7 +11,7 @@ services:
       - SPRING_DATA_MONGODB_DATABASE=test
     network_mode: host
     volumes:
-      - $HOME/mongo:/data/db
+      - app-data:/data/db
   backendapp:
     build: ./microservice-product
     container_name: backendapp
@@ -32,3 +32,5 @@ services:
       - 4200:80
     depends_on:
       - backendapp
+volumes:
+  app-data:
