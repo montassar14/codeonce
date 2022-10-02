@@ -1,0 +1,32 @@
+<div routerLink="/products" class="container d-flex h-100" >
+
+  <div class="container" *ngIf="productFormGroup">
+    <form [formGroup]="productFormGroup">
+        <div class="form-group">
+            <label>category</label>
+            <input type="text" class="form-control" formControlName="category">
+        </div>
+        <button class="btn btn-success" (click)="onSearchProduct()">Search</button>
+    </form>
+</div>
+
+    <table *ngIf="products" class="table">
+      <thead >
+      <tr class="d-flex">
+        <th scope="col" class="col-2">Ref</th>
+        <th scope="col" class="col-2">Name</th>
+        <th scope="col" class="col-2">Quantity</th>
+        <th scope="col" class="col-2">Category</th>
+        <th scope="col" class="col-2"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of products" class="d-flex">
+        <td class="col-2">{{p.id}}</td>
+        <td class="col-2">{{p.name}}</td>
+        <td class="col-2">{{p.qte}}</td>
+        <td class="col-2">{{p.category.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>

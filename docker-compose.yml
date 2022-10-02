@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - SPRING_DATA_MONGODB_DATABASE=test
+    network_mode: host
+    volumes:
+      - $HOME/mongo:/data/db
+  backendapp:
+    build: ./microservice-product
+    container_name: backendapp
+    depends_on:
+      - mongo
+    network_mode: "host"
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongo
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_DATABASE=test
+  frontendapp:
+    build: ./FrontendApp
+    container_name: frontendapp
+    ports:
+      - 4200:80
+    depends_on:
+      - backendapp
